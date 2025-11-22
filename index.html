@@ -243,7 +243,30 @@
 
     .recipe-card {
       min-height: 200px;
+      max-height: 480px;
+      overflow-y: auto;
+      overflow-x: hidden;
       transition: transform 0.25s ease-out, opacity 0.25s ease-out;
+      padding-right: 4px;
+    }
+
+    /* Scrollbar styling */
+    .recipe-card::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .recipe-card::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 3px;
+    }
+
+    .recipe-card::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 3px;
+    }
+
+    .recipe-card::-webkit-scrollbar-thumb:hover {
+      background: var(--text);
     }
 
     .recipe-title {
@@ -448,6 +471,8 @@
             name: "Dil Chahta Hai",
             drinkName: "Gin & Tonic",
             tags: ["Tall glass", "Ice heavy"],
+            glass: "Highball or Short Tumbler",
+            tools: ["Jigger", "Bar spoon"],
             ingredients: [
               "45 ml gin",
               "Top with tonic water",
@@ -463,6 +488,8 @@
             name: "Queen",
             drinkName: "Gin Rickey",
             tags: ["Light", "Citrusy"],
+            glass: "Highball or Short Tumbler",
+            tools: ["Jigger"],
             ingredients: [
               "45 ml gin",
               "Half lime, squeezed",
@@ -1134,6 +1161,8 @@
         <div class="tags">
           ${r.tags ? r.tags.map((t) => `<span class="tag">${t}</span>`).join("") : ""}
         </div>
+        ${r.glass ? `<div class="recipe-section-title">Glass</div><div style="font-size: 0.9rem; color: var(--text); margin-bottom: 8px;">🥃 ${r.glass}</div>` : ''}
+        ${r.tools ? `<div class="recipe-section-title">Tools</div><div style="font-size: 0.9rem; color: var(--text); margin-bottom: 8px;">🛠️ ${r.tools.join(', ')}</div>` : ''}
         <div class="recipe-section-title">Ingredients</div>
         <ul>
           ${r.ingredients.map((i) => `<li>${i}</li>`).join("")}

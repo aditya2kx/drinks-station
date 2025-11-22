@@ -124,6 +124,25 @@
       margin-top: 2px;
     }
 
+    .chip .recipe-badge {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      background: var(--accent);
+      color: var(--chip-active-text);
+      font-size: 0.65rem;
+      font-weight: 600;
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 2px solid var(--bg);
+      min-width: 22px;
+      text-align: center;
+    }
+
+    .chip {
+      position: relative;
+    }
+
     .chip.active {
       background: var(--chip-active);
       color: var(--chip-active-text);
@@ -132,6 +151,12 @@
 
     .chip.active span.subtitle {
       color: rgba(0, 0, 0, 0.7);
+    }
+
+    .chip.active .recipe-badge {
+      background: var(--chip-active-text);
+      color: var(--accent);
+      border-color: var(--accent);
     }
 
     .hint {
@@ -637,6 +662,10 @@
     spiritRow.innerHTML = "";
     spiritOrder.forEach((key) => {
       const s = recipesData[key];
+      
+      // Count total recipes for this spirit across all vibes
+      const totalRecipes = Object.values(s.vibes).reduce((sum, recipes) => sum + recipes.length, 0);
+      
       const btn = document.createElement("button");
       btn.className = "chip";
       btn.dataset.spirit = key;
@@ -651,6 +680,7 @@
             ? "Party, salt & lime"
             : "Tropical & fun"
         }</span>
+        <span class="recipe-badge">${totalRecipes}</span>
       `;
       if (key === currentSpirit) btn.classList.add("active");
       btn.addEventListener("click", () => {

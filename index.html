@@ -372,20 +372,12 @@
       color: var(--muted);
       padding: 22px 5px 10px;
     }
-
-    footer {
-      margin-top: 10px;
-      text-align: center;
-      font-size: 0.85rem;
-      color: var(--muted);
-      opacity: 0.8;
-    }
   </style>
 </head>
 <body>
 <div class="app">
   <header>
-    <h1>Cocktail Lab</h1>
+    <h1>Zindagi Na Milegi Dobara</h1>
     <p>Pick your spirit, choose your vibe, follow the recipe. Then go make it on the bar ✨</p>
   </header>
 
@@ -441,7 +433,6 @@
     </div>
   </section>
 
-  <footer>Tip: Save this page offline & add to Home Screen on the iPad for a full-screen bar assistant.</footer>
 </div>
 
 <script>
@@ -452,7 +443,8 @@
       vibes: {
         easy: [
           {
-            name: "Gin & Tonic",
+            name: "Dil Chahta Hai",
+            drinkName: "Gin & Tonic",
             tags: ["Tall glass", "Ice heavy"],
             ingredients: [
               "45 ml gin",
@@ -466,7 +458,8 @@
             ]
           },
           {
-            name: "Gin Rickey",
+            name: "Queen",
+            drinkName: "Gin Rickey",
             tags: ["Light", "Citrusy"],
             ingredients: [
               "45 ml gin",
@@ -482,7 +475,8 @@
         ],
         medium: [
           {
-            name: "Basil Gin Smash",
+            name: "Jab We Met",
+            drinkName: "Basil Gin Smash",
             tags: ["Fresh", "Herby"],
             ingredients: [
               "45 ml gin",
@@ -498,7 +492,8 @@
             ]
           },
           {
-            name: "Cucumber Gimlet",
+            name: "Yeh Jawaani Hai Deewani",
+            drinkName: "Cucumber Gimlet",
             tags: ["Crisp", "Elegant"],
             ingredients: [
               "45 ml gin",
@@ -517,7 +512,8 @@
         ],
         fancy: [
           {
-            name: "Garden G&T",
+            name: "Kabhi Khushi Kabhie Gham",
+            drinkName: "Garden G&T",
             tags: ["Showy", "Garnish heavy"],
             ingredients: [
               "45 ml gin",
@@ -533,7 +529,8 @@
             ]
           },
           {
-            name: "Elderflower Gin Fizz",
+            name: "Dilwale Dulhania Le Jayenge",
+            drinkName: "Elderflower Gin Fizz",
             tags: ["Floral", "Instagram-worthy"],
             ingredients: [
               "45 ml gin",
@@ -558,7 +555,8 @@
       vibes: {
         easy: [
           {
-            name: "Tequila Soda",
+            name: "Rang De Basanti",
+            drinkName: "Tequila Soda",
             tags: ["Light", "Sessionable"],
             ingredients: [
               "45 ml tequila",
@@ -572,7 +570,8 @@
             ]
           },
           {
-            name: "Paloma",
+            name: "Lagaan",
+            drinkName: "Paloma",
             tags: ["Grapefruit", "Refreshing"],
             ingredients: [
               "45 ml tequila",
@@ -590,7 +589,8 @@
         ],
         medium: [
           {
-            name: "Easy Margarita",
+            name: "3 Idiots",
+            drinkName: "Easy Margarita",
             tags: ["Party classic"],
             ingredients: [
               "45 ml tequila",
@@ -606,7 +606,8 @@
             ]
           },
           {
-            name: "Tequila Sunrise",
+            name: "Kuch Kuch Hota Hai",
+            drinkName: "Tequila Sunrise",
             tags: ["Sweet", "Colorful"],
             ingredients: [
               "45 ml tequila",
@@ -624,7 +625,8 @@
         ],
         fancy: [
           {
-            name: "Spicy Margarita",
+            name: "Dangal",
+            drinkName: "Spicy Margarita",
             tags: ["Spicy", "Instagramable"],
             ingredients: [
               "45 ml tequila",
@@ -640,7 +642,8 @@
             ]
           },
           {
-            name: "Smoky Mezcal Margarita",
+            name: "Gangs of Wasseypur",
+            drinkName: "Smoky Mezcal Margarita",
             tags: ["Smoky", "Complex"],
             ingredients: [
               "30 ml tequila",
@@ -665,7 +668,8 @@
       vibes: {
         easy: [
           {
-            name: "Whiskey Ginger",
+            name: "Sholay",
+            drinkName: "Whiskey Ginger",
             tags: ["Crowd pleaser"],
             ingredients: [
               "45 ml whiskey",
@@ -679,7 +683,8 @@
             ]
           },
           {
-            name: "Whiskey Cola",
+            name: "Chennai Express",
+            drinkName: "Whiskey Cola",
             tags: ["Classic", "Simple"],
             ingredients: [
               "45 ml whiskey",
@@ -695,7 +700,8 @@
         ],
         medium: [
           {
-            name: "Whiskey Sour (easy)",
+            name: "Gully Boy",
+            drinkName: "Whiskey Sour",
             tags: ["Tart", "Shaken"],
             ingredients: [
               "45 ml whiskey",
@@ -711,7 +717,8 @@
             ]
           },
           {
-            name: "Mint Julep",
+            name: "Barfi",
+            drinkName: "Mint Julep",
             tags: ["Southern", "Refreshing"],
             ingredients: [
               "60 ml whiskey (or bourbon)",
@@ -729,7 +736,8 @@
         ],
         fancy: [
           {
-            name: "Old Fashioned",
+            name: "Devdas",
+            drinkName: "Old Fashioned",
             tags: ["Spirit-forward"],
             ingredients: [
               "60 ml whiskey",
@@ -745,7 +753,8 @@
             ]
           },
           {
-            name: "Manhattan",
+            name: "Rockstar",
+            drinkName: "Manhattan",
             tags: ["Sophisticated", "Stirred"],
             ingredients: [
               "60 ml whiskey or rye",
@@ -769,7 +778,8 @@
       vibes: {
         easy: [
           {
-            name: "Rum & Coke",
+            name: "Andaz Apna Apna",
+            drinkName: "Rum & Coke",
             tags: ["No-brainer"],
             ingredients: [
               "45 ml rum",
@@ -783,7 +793,8 @@
             ]
           },
           {
-            name: "Dark & Stormy",
+            name: "Chak De India",
+            drinkName: "Dark & Stormy",
             tags: ["Ginger", "Bold"],
             ingredients: [
               "45 ml dark rum",
@@ -799,7 +810,8 @@
         ],
         medium: [
           {
-            name: "Lazy Mojito",
+            name: "Wake Up Sid",
+            drinkName: "Lazy Mojito",
             tags: ["Refreshing"],
             ingredients: [
               "45 ml rum",
@@ -815,7 +827,8 @@
             ]
           },
           {
-            name: "Rum Punch",
+            name: "Tashan",
+            drinkName: "Rum Punch",
             tags: ["Fruity", "Party-ready"],
             ingredients: [
               "45 ml rum",
@@ -834,7 +847,8 @@
         ],
         fancy: [
           {
-            name: "Pineapple Rum Highball",
+            name: "Hera Pheri",
+            drinkName: "Pineapple Rum Highball",
             tags: ["Tropical"],
             ingredients: [
               "45 ml rum",
@@ -850,7 +864,8 @@
             ]
           },
           {
-            name: "Mai Tai",
+            name: "Munna Bhai M.B.B.S.",
+            drinkName: "Mai Tai",
             tags: ["Tiki", "Complex"],
             ingredients: [
               "45 ml rum (mix light & dark if you have both)",
@@ -875,7 +890,8 @@
       vibes: {
         easy: [
           {
-            name: "Virgin Mojito",
+            name: "Taare Zameen Par",
+            drinkName: "Virgin Mojito",
             tags: ["Minty", "No alcohol"],
             ingredients: [
               "Mint leaves",
@@ -892,7 +908,8 @@
             ]
           },
           {
-            name: "Cucumber Limeade",
+            name: "English Vinglish",
+            drinkName: "Cucumber Limeade",
             tags: ["Crisp", "Refreshing"],
             ingredients: [
               "4-5 cucumber slices",
@@ -911,7 +928,8 @@
         ],
         medium: [
           {
-            name: "Sunrise Mocktail",
+            name: "Veer-Zaara",
+            drinkName: "Sunrise Mocktail",
             tags: ["Fruity", "Colorful"],
             ingredients: [
               "90 ml orange juice",
@@ -927,7 +945,8 @@
             ]
           },
           {
-            name: "Ginger Lime Fizz",
+            name: "PK",
+            drinkName: "Ginger Lime Fizz",
             tags: ["Spicy", "Zingy"],
             ingredients: [
               "30 ml lime juice",
@@ -945,7 +964,8 @@
         ],
         fancy: [
           {
-            name: "Berry Basil Sparkler",
+            name: "Om Shanti Om",
+            drinkName: "Berry Basil Sparkler",
             tags: ["Elegant", "Garden-fresh"],
             ingredients: [
               "4-5 fresh berries (strawberry, raspberry)",
@@ -962,7 +982,8 @@
             ]
           },
           {
-            name: "Virgin Piña Colada",
+            name: "My Name is Khan",
+            drinkName: "Virgin Piña Colada",
             tags: ["Tropical", "Creamy"],
             ingredients: [
               "60 ml pineapple juice",
@@ -1104,6 +1125,7 @@
           <span>${r.name}</span>
           <span class="pill">${recipesData[currentSpirit].label.toUpperCase()} • ${currentEffort.toUpperCase()}</span>
         </div>
+        ${r.drinkName ? `<div style="font-size: 0.85rem; color: var(--muted); margin-bottom: 6px;">${r.drinkName}</div>` : ''}
         <div class="tags">
           ${r.tags ? r.tags.map((t) => `<span class="tag">${t}</span>`).join("") : ""}
         </div>

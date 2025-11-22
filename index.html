@@ -231,7 +231,7 @@
       align-items: center;
       justify-content: space-between;
       margin-top: 10px;
-      gap: 10px;
+      gap: 8px;
     }
 
     .nav-buttons {
@@ -274,6 +274,19 @@
     .dot.active {
       width: 14px;
       background: var(--accent);
+    }
+
+    .recipe-counter {
+      font-size: 0.75rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .recipe-counter .current {
+      color: var(--accent);
+      font-weight: 600;
     }
 
     .empty-state {
@@ -333,13 +346,16 @@
     </h2>
 
     <div class="recipe-shell" id="recipeShell">
-      <div class="swipe-hint"><span>⬅︎ ➝ ➝</span> swipe</div>
+      <div class="swipe-hint"><span>←→</span> swipe to explore</div>
       <div class="recipe-card" id="recipeCard"></div>
 
       <div class="nav-row">
         <div class="nav-buttons">
           <button class="nav-btn" id="prevBtn" aria-label="Previous recipe">‹</button>
           <button class="nav-btn" id="nextBtn" aria-label="Next recipe">›</button>
+        </div>
+        <div class="recipe-counter" id="recipeCounter">
+          <span class="current">1</span> of <span>1</span>
         </div>
         <div class="dots" id="dots"></div>
       </div>
@@ -614,6 +630,7 @@
   const prevBtn = document.getElementById("prevBtn");
   const nextBtn = document.getElementById("nextBtn");
   const recipeShell = document.getElementById("recipeShell");
+  const recipeCounter = document.getElementById("recipeCounter");
 
   // ====== INIT SPIRIT CHIPS ======
   function renderSpiritChips() {
@@ -682,6 +699,7 @@
       recipeCard.innerHTML =
         '<div class="empty-state">No recipes here yet. Try a different vibe or add one in the code.</div>';
       dotsEl.innerHTML = "";
+      recipeCounter.innerHTML = '<span class="current">0</span> of <span>0</span>';
       prevBtn.disabled = true;
       nextBtn.disabled = true;
       return;
@@ -691,6 +709,9 @@
     if (currentIndex < 0) currentIndex = 0;
 
     const r = list[currentIndex];
+
+    // Update counter
+    recipeCounter.innerHTML = `<span class="current">${currentIndex + 1}</span> of <span>${list.length}</span>`;
 
     // Simple slide animation
     recipeCard.style.transform = `translateX(${direction * -25}px)`;

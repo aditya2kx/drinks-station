@@ -84,7 +84,8 @@
       color: var(--text);
       display: flex;
       justify-content: center;
-      min-height: 100vh;
+      height: 100vh;
+      overflow: hidden;
       transition: background 0.5s ease;
     }
 
@@ -92,10 +93,15 @@
       width: 100%;
       max-width: 520px;
       padding: 18px 16px 28px;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
     }
 
     header {
       padding: 8px 4px 18px;
+      flex-shrink: 0;
     }
 
     header h1 {
@@ -121,6 +127,22 @@
       border: 1px solid rgba(255, 255, 255, 0.03);
       margin-bottom: 14px;
       transition: border-color 0.4s ease;
+      flex-shrink: 0;
+    }
+
+    #step-recipe {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      margin-bottom: 0;
+    }
+
+    #step-recipe .recipe-shell {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
     }
 
     .card h2 {
@@ -225,7 +247,6 @@
       border: 1px solid rgba(255, 255, 255, 0.06);
       padding: 14px 13px 12px;
       position: relative;
-      overflow: hidden;
     }
 
     .swipe-hint {
@@ -242,12 +263,12 @@
     }
 
     .recipe-card {
-      min-height: 200px;
-      max-height: 480px;
+      flex: 1;
       overflow-y: auto;
       overflow-x: hidden;
       transition: transform 0.25s ease-out, opacity 0.25s ease-out;
       padding-right: 4px;
+      min-height: 0;
     }
 
     /* Scrollbar styling */
@@ -330,6 +351,7 @@
       margin-top: 10px;
       gap: 10px;
       flex-wrap: wrap;
+      flex-shrink: 0;
     }
 
     .nav-row > * {

@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cocktail Lab</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Make it behave like an app when added to iPad home screen -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <style>
+    :root {
+      --bg: #05060a;
+      --card: #11131b;
+      --accent: #f4c542;
+      --accent-soft: rgba(244, 197, 66, 0.15);
+      --text: #f5f5f5;
+      --muted: #a6a7b0;
+      --chip-bg: #1b1e28;
+      --chip-active: #f4c542;
+      --chip-active-text: #11131b;
+      --danger: #ff6b6b;
+      --radius-lg: 18px;
+      --radius-md: 999px;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Helvetica Neue", sans-serif;
+      background: radial-gradient(circle at top left, #111523 0, #05060a 55%);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 520px;
+      padding: 18px 16px 28px;
+    }
+
+    header {
+      padding: 8px 4px 18px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.6rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    header p {
+      margin: 4px 0 0;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .card {
+      background: linear-gradient(145deg, #10131f, #070812);
+      border-radius: 24px;
+      padding: 18px 16px 16px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      margin-bottom: 14px;
+    }
+
+    .card h2 {
+      margin: 0 0 10px;
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .step-badge {
+      font-size: 0.7rem;
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(244, 197, 66, 0.35);
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .chip {
+      flex: 1 0 calc(50% - 8px);
+      padding: 10px 12px;
+      border-radius: var(--radius-md);
+      background: var(--chip-bg);
+      color: var(--text);
+      border: 1px solid transparent;
+      font-size: 0.9rem;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .chip.small {
+      flex: 0 0 auto;
+      padding-inline: 14px;
+      font-size: 0.85rem;
+    }
+
+    .chip span.subtitle {
+      display: block;
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .chip.active {
+      background: var(--chip-active);
+      color: var(--chip-active-text);
+      border-color: var(--chip-active);
+    }
+
+    .chip.active span.subtitle {
+      color: rgba(0, 0, 0, 0.7);
+    }
+
+    .hint {
+      font-size: 0.76rem;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    /* Recipe area */
+
+    .recipe-shell {
+      margin-top: 8px;
+      border-radius: 22px;
+      background: radial-gradient(circle at top left, #1d2030 0, #05060a 60%);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 14px 13px 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .swipe-hint {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      font-size: 0.65rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      opacity: 0.8;
+    }
+
+    .swipe-hint span {
+      font-size: 0.8rem;
+    }
+
+    .recipe-card {
+      min-height: 170px;
+      transition: transform 0.25s ease-out, opacity 0.25s ease-out;
+    }
+
+    .recipe-title {
+      font-size: 1.05rem;
+      margin: 0 0 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill {
+      font-size: 0.65rem;
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(244, 197, 66, 0.4);
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin: 4px 0 6px;
+    }
+
+    .tag {
+      font-size: 0.7rem;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--muted);
+    }
+
+    .recipe-section-title {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      margin: 8px 0 4px;
+    }
+
+    ul, ol {
+      margin: 0;
+      padding-left: 18px;
+      font-size: 0.82rem;
+      color: #d9d9e1;
+    }
+
+    li + li {
+      margin-top: 2px;
+    }
+
+    .nav-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 10px;
+      gap: 10px;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 6px;
+    }
+
+    .nav-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.02);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+
+    .dots {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .dot.active {
+      width: 14px;
+      background: var(--accent);
+    }
+
+    .empty-state {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--muted);
+      padding: 22px 5px 10px;
+    }
+
+    footer {
+      margin-top: 10px;
+      text-align: center;
+      font-size: 0.72rem;
+      color: var(--muted);
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>Cocktail Lab</h1>
+    <p>Pick your spirit, choose your vibe, follow the recipe. Then go make it on the bar ✨</p>
+  </header>
+
+  <!-- STEP 1: Spirit -->
+  <section class="card" id="step-spirit">
+    <h2>
+      <span class="step-badge">Step 1</span>
+      Pick your spirit
+    </h2>
+    <div class="chip-row" id="spiritRow">
+      <!-- Spirit chips will be injected via JS -->
+    </div>
+    <div class="hint">Tap one. You can change it anytime.</div>
+  </section>
+
+  <!-- STEP 2: Effort / vibe -->
+  <section class="card" id="step-effort">
+    <h2>
+      <span class="step-badge">Step 2</span>
+      Pick your vibe
+    </h2>
+    <div class="chip-row" id="effortRow">
+      <button class="chip small" data-effort="easy">Easy<span class="subtitle">Zero thinking</span></button>
+      <button class="chip small" data-effort="medium">Medium<span class="subtitle">Feel like a bartender</span></button>
+      <button class="chip small" data-effort="fancy">Fancy<span class="subtitle">Make Instagram proud</span></button>
+    </div>
+    <div class="hint">Effort = number of steps / ingredients.</div>
+  </section>
+
+  <!-- STEP 3: Recipe viewer -->
+  <section class="card" id="step-recipe">
+    <h2>
+      <span class="step-badge">Step 3</span>
+      Make the drink
+    </h2>
+
+    <div class="recipe-shell" id="recipeShell">
+      <div class="swipe-hint"><span>⬅︎ ➝ ➝</span> swipe</div>
+      <div class="recipe-card" id="recipeCard"></div>
+
+      <div class="nav-row">
+        <div class="nav-buttons">
+          <button class="nav-btn" id="prevBtn" aria-label="Previous recipe">‹</button>
+          <button class="nav-btn" id="nextBtn" aria-label="Next recipe">›</button>
+        </div>
+        <div class="dots" id="dots"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>Tip: Save this page offline & add to Home Screen on the iPad for a full-screen bar assistant.</footer>
+</div>
+
+<script>
+  // ====== DATA: EDIT THIS SECTION TO CHANGE RECIPES ======
+  const recipesData = {
+    gin: {
+      label: "Gin",
+      vibes: {
+        easy: [
+          {
+            name: "Gin & Tonic",
+            tags: ["Tall glass", "Ice heavy"],
+            ingredients: [
+              "45 ml gin",
+              "Top with tonic water",
+              "Lime wedge"
+            ],
+            steps: [
+              "Fill the glass to the top with ice.",
+              "Pour in gin and top with tonic water.",
+              "Give a gentle stir, squeeze in lime wedge and drop it in."
+            ]
+          },
+          {
+            name: "Gin Rickey",
+            tags: ["Light", "Citrusy"],
+            ingredients: [
+              "45 ml gin",
+              "Half lime, squeezed",
+              "Top with soda water"
+            ],
+            steps: [
+              "Fill glass with ice.",
+              "Squeeze in lime, drop the shell in.",
+              "Add gin and top with soda water. Stir once."
+            ]
+          }
+        ],
+        medium: [
+          {
+            name: "Basil Gin Smash",
+            tags: ["Fresh", "Herby"],
+            ingredients: [
+              "45 ml gin",
+              "Small handful basil or mint",
+              "20 ml lime juice",
+              "15 ml simple syrup",
+              "Ice"
+            ],
+            steps: [
+              "In the glass, lightly muddle basil/mint with lime juice and syrup.",
+              "Add ice and gin.",
+              "Stir well and garnish with a basil sprig."
+            ]
+          }
+        ],
+        fancy: [
+          {
+            name: "Garden G&T",
+            tags: ["Showy", "Garnish heavy"],
+            ingredients: [
+              "45 ml gin",
+              "Tonic water",
+              "Cucumber slices",
+              "Mint",
+              "Citrus wheels"
+            ],
+            steps: [
+              "Fill a large glass with ice and cucumber slices.",
+              "Add gin and top with tonic.",
+              "Layer citrus wheels on the side and crown with mint."
+            ]
+          }
+        ]
+      }
+    },
+
+    tequila: {
+      label: "Tequila",
+      vibes: {
+        easy: [
+          {
+            name: "Tequila Soda",
+            tags: ["Light", "Sessionable"],
+            ingredients: [
+              "45 ml tequila",
+              "Top with soda water",
+              "Lime wedge"
+            ],
+            steps: [
+              "Fill glass with ice.",
+              "Add tequila and top with soda water.",
+              "Squeeze lime and drop it in."
+            ]
+          }
+        ],
+        medium: [
+          {
+            name: "Easy Margarita",
+            tags: ["Party classic"],
+            ingredients: [
+              "45 ml tequila",
+              "60 ml margarita mix or limeade",
+              "Salt or Tajín for rim",
+              "Lime wheel"
+            ],
+            steps: [
+              "Rim glass with lime then dip into salt/Tajín.",
+              "Add ice to the glass.",
+              "Shake tequila and mix with ice (or just build in glass) and pour.",
+              "Garnish with lime wheel."
+            ]
+          }
+        ],
+        fancy: [
+          {
+            name: "Spicy Margarita",
+            tags: ["Spicy", "Instagramable"],
+            ingredients: [
+              "45 ml tequila",
+              "60 ml margarita mix or lime + simple syrup",
+              "2–3 jalapeño slices",
+              "Tajín rim"
+            ],
+            steps: [
+              "Rim glass with Tajín.",
+              "Muddle jalapeño with mix in shaker.",
+              "Add tequila + ice, shake, and strain over fresh ice.",
+              "Garnish with jalapeño slice."
+            ]
+          }
+        ]
+      }
+    },
+
+    whiskey: {
+      label: "Whiskey",
+      vibes: {
+        easy: [
+          {
+            name: "Whiskey Ginger",
+            tags: ["Crowd pleaser"],
+            ingredients: [
+              "45 ml whiskey",
+              "Top with ginger ale",
+              "Lime wedge"
+            ],
+            steps: [
+              "Fill glass with ice.",
+              "Add whiskey and top with ginger ale.",
+              "Squeeze lime and stir once."
+            ]
+          }
+        ],
+        medium: [
+          {
+            name: "Whiskey Sour (easy)",
+            tags: ["Tart", "Shaken"],
+            ingredients: [
+              "45 ml whiskey",
+              "30 ml lemon juice",
+              "20 ml simple syrup",
+              "Ice"
+            ],
+            steps: [
+              "Add all ingredients into shaker with ice.",
+              "Shake hard for 10–12 seconds.",
+              "Strain into glass with fresh ice.",
+              "Garnish with orange slice if you have it."
+            ]
+          }
+        ],
+        fancy: [
+          {
+            name: "Old Fashioned",
+            tags: ["Spirit-forward"],
+            ingredients: [
+              "60 ml whiskey",
+              "1 barspoon simple syrup",
+              "2–3 dashes bitters (optional)",
+              "Orange peel"
+            ],
+            steps: [
+              "In a rocks glass, add syrup and bitters.",
+              "Add a big ice cube if you have one.",
+              "Pour whiskey over and stir 10–15 seconds.",
+              "Express orange peel over the glass and drop it in."
+            ]
+          }
+        ]
+      }
+    },
+
+    rum: {
+      label: "Rum",
+      vibes: {
+        easy: [
+          {
+            name: "Rum & Coke",
+            tags: ["No-brainer"],
+            ingredients: [
+              "45 ml rum",
+              "Top with cola",
+              "Lime wedge"
+            ],
+            steps: [
+              "Fill glass with ice.",
+              "Add rum and top with cola.",
+              "Garnish with lime wedge."
+            ]
+          }
+        ],
+        medium: [
+          {
+            name: "Lazy Mojito",
+            tags: ["Refreshing"],
+            ingredients: [
+              "45 ml rum",
+              "Mint leaves",
+              "Half lime, cut",
+              "1–2 tsp sugar or simple syrup",
+              "Top with soda"
+            ],
+            steps: [
+              "Muddle mint, lime pieces, and sugar in the glass.",
+              "Add ice and rum.",
+              "Top with soda water and give a quick stir."
+            ]
+          }
+        ],
+        fancy: [
+          {
+            name: "Pineapple Rum Highball",
+            tags: ["Tropical"],
+            ingredients: [
+              "45 ml rum",
+              "60 ml pineapple juice (or mixer)",
+              "Top with soda",
+              "Citrus wheel + mint"
+            ],
+            steps: [
+              "Fill glass with ice.",
+              "Add rum and pineapple juice.",
+              "Top with soda water and stir.",
+              "Garnish with citrus wheel and mint."
+            ]
+          }
+        ]
+      }
+    }
+  };
+
+  const spiritOrder = ["gin", "tequila", "whiskey", "rum"];
+
+  // ====== STATE ======
+  let currentSpirit = "gin";
+  let currentEffort = "easy";
+  let currentIndex = 0;
+
+  // ====== ELEMENTS ======
+  const spiritRow = document.getElementById("spiritRow");
+  const effortRow = document.getElementById("effortRow");
+  const recipeCard = document.getElementById("recipeCard");
+  const dotsEl = document.getElementById("dots");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  const recipeShell = document.getElementById("recipeShell");
+
+  // ====== INIT SPIRIT CHIPS ======
+  function renderSpiritChips() {
+    spiritRow.innerHTML = "";
+    spiritOrder.forEach((key) => {
+      const s = recipesData[key];
+      const btn = document.createElement("button");
+      btn.className = "chip";
+      btn.dataset.spirit = key;
+      btn.innerHTML = `
+        ${s.label}
+        <span class="subtitle">${
+          key === "whiskey"
+            ? "Comfort, campfire, cozy"
+            : key === "gin"
+            ? "Fresh & botanical"
+            : key === "tequila"
+            ? "Party, salt & lime"
+            : "Tropical & fun"
+        }</span>
+      `;
+      if (key === currentSpirit) btn.classList.add("active");
+      btn.addEventListener("click", () => {
+        currentSpirit = key;
+        currentIndex = 0;
+        updateActiveSpirit();
+        renderRecipe();
+      });
+      spiritRow.appendChild(btn);
+    });
+  }
+
+  function updateActiveSpirit() {
+    [...spiritRow.querySelectorAll(".chip")].forEach((chip) => {
+      chip.classList.toggle("active", chip.dataset.spirit === currentSpirit);
+    });
+  }
+
+  // ====== EFFORT BUTTONS ======
+  [...effortRow.querySelectorAll(".chip")].forEach((chip) => {
+    chip.addEventListener("click", () => {
+      currentEffort = chip.dataset.effort;
+      currentIndex = 0;
+      [...effortRow.querySelectorAll(".chip")].forEach((c) =>
+        c.classList.toggle("active", c === chip)
+      );
+      renderRecipe();
+    });
+  });
+  // Default effort
+  effortRow.querySelector('[data-effort="easy"]').classList.add("active");
+
+  // ====== GET CURRENT RECIPE LIST ======
+  function getCurrentRecipes() {
+    const spirit = recipesData[currentSpirit];
+    if (!spirit) return [];
+    const group = spirit.vibes[currentEffort] || [];
+    return group;
+  }
+
+  // ====== RENDER RECIPE ======
+  function renderRecipe(direction = 0) {
+    const list = getCurrentRecipes();
+
+    if (!list.length) {
+      recipeCard.innerHTML =
+        '<div class="empty-state">No recipes here yet. Try a different vibe or add one in the code.</div>';
+      dotsEl.innerHTML = "";
+      prevBtn.disabled = true;
+      nextBtn.disabled = true;
+      return;
+    }
+
+    if (currentIndex >= list.length) currentIndex = list.length - 1;
+    if (currentIndex < 0) currentIndex = 0;
+
+    const r = list[currentIndex];
+
+    // Simple slide animation
+    recipeCard.style.transform = `translateX(${direction * -25}px)`;
+    recipeCard.style.opacity = 0;
+
+    setTimeout(() => {
+      recipeCard.innerHTML = `
+        <div class="recipe-title">
+          <span>${r.name}</span>
+          <span class="pill">${recipesData[currentSpirit].label.toUpperCase()} • ${currentEffort.toUpperCase()}</span>
+        </div>
+        <div class="tags">
+          ${r.tags ? r.tags.map((t) => `<span class="tag">${t}</span>`).join("") : ""}
+        </div>
+        <div class="recipe-section-title">Ingredients</div>
+        <ul>
+          ${r.ingredients.map((i) => `<li>${i}</li>`).join("")}
+        </ul>
+        <div class="recipe-section-title">Steps</div>
+        <ol>
+          ${r.steps.map((s) => `<li>${s}</li>`).join("")}
+        </ol>
+      `;
+      recipeCard.style.transform = "translateX(0)";
+      recipeCard.style.opacity = 1;
+    }, 120);
+
+    // Dots
+    dotsEl.innerHTML = "";
+    list.forEach((_, idx) => {
+      const d = document.createElement("div");
+      d.className = "dot" + (idx === currentIndex ? " active" : "");
+      dotsEl.appendChild(d);
+    });
+
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex === list.length - 1;
+  }
+
+  prevBtn.addEventListener("click", () => {
+    currentIndex--;
+    renderRecipe(-1);
+  });
+
+  nextBtn.addEventListener("click", () => {
+    currentIndex++;
+    renderRecipe(1);
+  });
+
+  // ====== SWIPE SUPPORT ======
+  let touchStartX = null;
+
+  recipeShell.addEventListener("touchstart", (e) => {
+    touchStartX = e.changedTouches[0].clientX;
+  });
+
+  recipeShell.addEventListener("touchend", (e) => {
+    if (touchStartX === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const threshold = 40; // pixels
+    if (dx > threshold && currentIndex > 0) {
+      currentIndex--;
+      renderRecipe(-1);
+    } else if (dx < -threshold && currentIndex < getCurrentRecipes().length - 1) {
+      currentIndex++;
+      renderRecipe(1);
+    }
+    touchStartX = null;
+  });
+
+  // ====== INIT ======
+  renderSpiritChips();
+  renderRecipe();
+</script>
+</body>
+</html>

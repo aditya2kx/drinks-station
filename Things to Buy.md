@@ -86,7 +86,6 @@ Organized into categories — no unnecessary clutter.
 **Juices:**
 * Orange juice
 * Pineapple juice
-* Cranberry juice (optional)
 
 **Syrups & Sweeteners:**
 * Simple syrup (make at home: 1:1 sugar:water)
@@ -94,10 +93,6 @@ Organized into categories — no unnecessary clutter.
 * Agave syrup (for tequila drinks)
 * Ginger syrup (or fresh ginger + simple syrup)
 
-**Specialty (if doing fancy drinks):**
-* Elderflower liqueur (for Elderflower Gin Fizz)
-* Orgeat or almond syrup (for Mai Tai)
-* Coconut cream (for Virgin Piña Colada)
 
 **Premade Mixes (Optional - easier route):**
 * Jimmy's Cocktails Mango Chili Mojito
@@ -114,15 +109,11 @@ Organized into categories — no unnecessary clutter.
 * Whiskey or Bourbon (for 6 whiskey cocktails)
 * Rum - Light & Dark if possible (for 6 rum cocktails)
 
-**Liqueurs & Modifiers:**
-* Orange liqueur / Triple Sec (for Mai Tai)
-* Sweet vermouth (for Manhattan)
+**Liqueurs & Modifiers (Optional):**
 * Mezcal (optional, for Smoky Mezcal Margarita)
-* Elderflower liqueur (optional, for Elderflower Gin Fizz)
-* Prosecco or Champagne (optional, for Elderflower Gin Fizz)
 
 **Bar Essentials:**
-* Bitters (Angostura - for Old Fashioned, Manhattan)
+* Bitters (Angostura - optional, for Old Fashioned)
 
 **Note:** You have 30 total recipes (24 cocktails + 6 mocktails)
 
@@ -130,18 +121,13 @@ Organized into categories — no unnecessary clutter.
 
 ## **🔸 G. What You Can Skip (Based on Recipe Priority)**
 
-If you want to simplify, you can skip the "Fancy" tier drinks and their unique ingredients:
+If you want to simplify even further:
 
 **Can skip if budget-conscious:**
-* Elderflower liqueur (only needed for 1 drink)
-* Prosecco/Champagne (only needed for 1 drink)
-* Mezcal (only needed for 1 drink)
-* Sweet vermouth (only needed for Manhattan)
-* Orange liqueur (only needed for Mai Tai)
-* Orgeat/almond syrup (only needed for Mai Tai)
-* Bitters (only needed for 2 drinks)
+* Mezcal (only needed for 1 drink - Smoky Mezcal Margarita)
+* Bitters (only needed for 1 drink - Old Fashioned, but still drinkable without it)
 
-**This still leaves you with 24+ delicious cocktails to make!**
+**All recipes have been optimized to work with common, easy-to-find ingredients!**
 
 ---
 
@@ -155,5 +141,5 @@ If you want to simplify, you can skip the "Fancy" tier drinks and their unique i
 * Ice (all recipes!)
 
 **Specialized Ingredients (1-2 recipes only):**
-* Basil, berries, coconut cream, elderflower, mezcal, vermouth, bitters
+* Basil, berries, jalapeños, mezcal, bitters
 

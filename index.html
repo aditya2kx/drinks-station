@@ -23,6 +23,52 @@
       --radius-lg: 18px;
       --radius-md: 999px;
       --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.45);
+      --gradient-start: #111523;
+      --gradient-end: #05060a;
+      
+      /* Transition for smooth theme changes */
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    /* Theme definitions */
+    [data-theme="gin"] {
+      --accent: #4ecdc4;
+      --accent-soft: rgba(78, 205, 196, 0.15);
+      --chip-active: #4ecdc4;
+      --gradient-start: #0d2818;
+      --gradient-end: #050a08;
+    }
+
+    [data-theme="tequila"] {
+      --accent: #ffa726;
+      --accent-soft: rgba(255, 167, 38, 0.15);
+      --chip-active: #ffa726;
+      --gradient-start: #2a1a0d;
+      --gradient-end: #0a0605;
+    }
+
+    [data-theme="whiskey"] {
+      --accent: #d4a574;
+      --accent-soft: rgba(212, 165, 116, 0.15);
+      --chip-active: #d4a574;
+      --gradient-start: #1f1610;
+      --gradient-end: #0a0705;
+    }
+
+    [data-theme="rum"] {
+      --accent: #ff6b9d;
+      --accent-soft: rgba(255, 107, 157, 0.15);
+      --chip-active: #ff6b9d;
+      --gradient-start: #1a1020;
+      --gradient-end: #070509;
+    }
+
+    [data-theme="mocktails"] {
+      --accent: #ab47bc;
+      --accent-soft: rgba(171, 71, 188, 0.15);
+      --chip-active: #ab47bc;
+      --gradient-start: #1a0f1f;
+      --gradient-end: #060509;
     }
 
     * {
@@ -34,11 +80,12 @@
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
         "Helvetica Neue", sans-serif;
-      background: radial-gradient(circle at top left, #111523 0, #05060a 55%);
+      background: radial-gradient(circle at top left, var(--gradient-start) 0, var(--gradient-end) 55%);
       color: var(--text);
       display: flex;
       justify-content: center;
       min-height: 100vh;
+      transition: background 0.5s ease;
     }
 
     .app {
@@ -71,6 +118,7 @@
       box-shadow: var(--shadow-soft);
       border: 1px solid rgba(255, 255, 255, 0.03);
       margin-bottom: 14px;
+      transition: border-color 0.4s ease;
     }
 
     .card h2 {
@@ -109,6 +157,7 @@
       text-align: center;
       cursor: pointer;
       user-select: none;
+      transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
     }
 
     .chip.small {
@@ -178,19 +227,16 @@
     }
 
     .swipe-hint {
-      position: absolute;
-      top: 10px;
-      right: 12px;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       color: var(--muted);
       display: flex;
       align-items: center;
       gap: 3px;
-      opacity: 0.8;
+      opacity: 0.7;
     }
 
     .swipe-hint span {
-      font-size: 0.95rem;
+      font-size: 0.85rem;
     }
 
     .recipe-card {
@@ -257,7 +303,12 @@
       align-items: center;
       justify-content: space-between;
       margin-top: 10px;
-      gap: 8px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav-row > * {
+      flex-shrink: 0;
     }
 
     .nav-buttons {
@@ -372,7 +423,6 @@
     </h2>
 
     <div class="recipe-shell" id="recipeShell">
-      <div class="swipe-hint"><span>←→</span> swipe to explore</div>
       <div class="recipe-card" id="recipeCard"></div>
 
       <div class="nav-row">
@@ -380,8 +430,11 @@
           <button class="nav-btn" id="prevBtn" aria-label="Previous recipe">‹</button>
           <button class="nav-btn" id="nextBtn" aria-label="Next recipe">›</button>
         </div>
-        <div class="recipe-counter" id="recipeCounter">
-          <span class="current">1</span> of <span>1</span>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <div class="recipe-counter" id="recipeCounter">
+            <span class="current">1</span> of <span>1</span>
+          </div>
+          <div class="swipe-hint"><span>←→</span> swipe</div>
         </div>
         <div class="dots" id="dots"></div>
       </div>
@@ -937,6 +990,11 @@
   let currentEffort = "easy";
   let currentIndex = 0;
 
+  // ====== THEME SWITCHING ======
+  function setTheme(spirit) {
+    document.documentElement.setAttribute('data-theme', spirit);
+  }
+
   // ====== ELEMENTS ======
   const spiritRow = document.getElementById("spiritRow");
   const effortRow = document.getElementById("effortRow");
@@ -978,6 +1036,7 @@
       btn.addEventListener("click", () => {
         currentSpirit = key;
         currentIndex = 0;
+        setTheme(key); // Apply theme
         updateActiveSpirit();
         renderRecipe();
       });
@@ -1105,6 +1164,7 @@
   });
 
   // ====== INIT ======
+  setTheme(currentSpirit); // Set initial theme
   renderSpiritChips();
   renderRecipe();
 </script>
